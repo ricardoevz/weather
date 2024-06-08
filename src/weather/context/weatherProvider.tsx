@@ -9,7 +9,6 @@ export const WeatherProvider = ({ children }: Props) => {
   const {
     state,
 
-    handleConvertDTtoDay,
     handleSearchPlacesByTerm,
     handleChangePlace,
   } = useWeather();
@@ -18,7 +17,6 @@ export const WeatherProvider = ({ children }: Props) => {
     <WeatherContext.Provider
       value={{
         ...state,
-        handleConvertDTtoDay,
         handleSearchPlacesByTerm,
         handleChangePlace,
       }}

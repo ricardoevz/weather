@@ -1,6 +1,6 @@
 import { WeatherResponse } from '../weather/interfaces/weatherResponse.interface';
 
-export const weatherResp: WeatherResponse = {
+export const mockWeather: WeatherResponse = {
   coord: {
     lon: -99.25,
     lat: 18.9167,

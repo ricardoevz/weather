@@ -1,10 +1,9 @@
 import { createContext } from 'react';
-import { Coord } from '../interfaces/waetherForescatResponse.interface';
-import { WeatherState } from '../interfaces';
+import { Place, WeatherState } from '../interfaces';
+import { Coord } from '../interfaces/weatherResponse.interface';
 
 export interface WeatherContextProps extends WeatherState {
-  handleConvertDTtoDay: (dt: number) => string;
-  handleSearchPlacesByTerm: (q: string) => Promise<T>;
+  handleSearchPlacesByTerm: (q: string) => Promise<Place[]>;
   handleChangePlace: (cood: Coord) => void;
 }
 

@@ -1,8 +1,9 @@
 import { useContext } from 'react';
 import { WeatherContext } from '../context';
+import { convertDTtoDay } from '../../helpers';
 
 export const Weather = () => {
-  const { current, handleConvertDTtoDay } = useContext(WeatherContext);
+  const { current } = useContext(WeatherContext);
   return (
     <section
       className='flex flex-col justify-center items-center'
@@ -29,7 +30,7 @@ export const Weather = () => {
           className='text-xl font-bold'
           aria-label='Día de la semana'
         >
-          {handleConvertDTtoDay(current.dt)}
+          {convertDTtoDay(current.dt)}
         </h1>
       </div>
       <div

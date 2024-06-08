@@ -1,9 +1,7 @@
-import { useContext } from 'react';
-import { WeatherContext } from '../context';
 import { Daily } from '../interfaces';
+import { convertDTtoDay } from '../../helpers';
 
 export const CardDayWeather = ({ current }: Daily) => {
-  const { handleConvertDTtoDay } = useContext(WeatherContext);
   return (
     <div
       className='bg-slate-700 p-5 rounded'
@@ -13,7 +11,7 @@ export const CardDayWeather = ({ current }: Daily) => {
         className='text-center capitalize'
         id='weather-day'
       >
-        {handleConvertDTtoDay(current.dt)}
+        {convertDTtoDay(current.dt)}
       </h2>
       <div
         className='flex justify-center'

@@ -3,9 +3,10 @@ import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { WeatherContext } from '../context';
 import { ChartData, ChartOptions } from 'chart.js/auto';
+import { convertDTtoDay } from '../../helpers';
 
 export const WeatherChart = () => {
-  const { daily, handleConvertDTtoDay } = useContext(WeatherContext);
+  const { daily } = useContext(WeatherContext);
   const [chartData, setChartData] = useState<ChartData<'line'>>();
 
   useEffect(() => {
@@ -14,7 +15,7 @@ export const WeatherChart = () => {
     const temperatureFeelLikes: number[] = [];
 
     daily.forEach((day) => {
-      const date = handleConvertDTtoDay(day.current.dt);
+      const date = convertDTtoDay(day.current.dt);
       labels.push(date);
       temperatures.push(day.current.main.temp);
       temperatureFeelLikes.push(day.current.main.feels_like);
@@ -39,7 +40,6 @@ export const WeatherChart = () => {
         },
       ],
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [daily]);
 
   const options: ChartOptions<'line'> = {

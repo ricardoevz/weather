@@ -6,7 +6,7 @@ export const InputSearch = () => {
   const { handleSearchPlacesByTerm, handleChangePlace } =
     useContext(WeatherContext);
 
-  const debouncerRef = useRef<number>();
+  const debouncerRef = useRef<NodeJS.Timeout>();
   const [places, setPlaces] = useState<Place[]>();
 
   const onQueryChanged = (event: ChangeEvent<HTMLInputElement>) => {

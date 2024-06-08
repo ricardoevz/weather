@@ -1,11 +1,15 @@
 import { useEffect, useReducer, useState } from 'react';
-import { Coord, List } from '../interfaces/waetherForescatResponse.interface';
 import { Daily, WeatherState } from '../interfaces';
 import { getPlacesByTerm } from '../service/weather.service';
 import { getUserLocation } from '../../helpers/getUserLocation';
 import { weatherReducer } from '../context';
-import { WeatherResponse } from '../interfaces/weatherResponse.interface';
+import {
+  Coord,
+  WeatherResponse,
+} from '../interfaces/weatherResponse.interface';
 import api from '../../apis/api';
+import { List } from '../interfaces/waetherForescat.response';
+import { convertDTtoDay } from '../../helpers';
 
 interface WeatherList {
   [k: string]: Daily;
@@ -35,7 +39,6 @@ export const useWeather = () => {
     try {
       const responseWeather = await api.get(`/weather?lat=${lat}&lon=${lon}`);
       const responseForecast = await api.get(`/forecast?lat=${lat}&lon=${lon}`);
-
       dispatch({
         type: 'setWeather',
         payload: {
@@ -61,7 +64,7 @@ export const useWeather = () => {
     const newList: WeatherList = {};
 
     list.forEach((day) => {
-      const dayOfWeek = handleConvertDTtoDay(day.dt);
+      const dayOfWeek = convertDTtoDay(day.dt);
       newList[dayOfWeek] ??= {
         hourly: [],
         current: {} as List,
@@ -71,14 +74,6 @@ export const useWeather = () => {
       newList[dayOfWeek].hourly.push({ dt: day.dt, temp: day.main.temp });
     });
     return Object.values(newList);
-  };
-
-  const handleConvertDTtoDay = (dt: number) => {
-    const date = new Date(dt * 1000);
-    const dayOfWeek = date.toLocaleDateString('es-ES', {
-      weekday: 'long',
-    });
-    return dayOfWeek;
   };
 
   const handleSearchPlacesByTerm = async (q: string) => {
@@ -101,7 +96,6 @@ export const useWeather = () => {
   return {
     state,
     error,
-    handleConvertDTtoDay,
     handleSearchPlacesByTerm,
     handleChangePlace,
   };

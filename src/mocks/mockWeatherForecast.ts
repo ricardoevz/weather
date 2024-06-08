@@ -1,4 +1,4 @@
-export const weatherForecast = {
+export const mockWeatherForecast = {
   cod: '200',
   message: 0,
   cnt: 40,
