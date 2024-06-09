@@ -1,4 +1,4 @@
-import { List } from './waetherForescatResponse.interface';
+import { List } from './waetherForescat.response';
 import { WeatherResponse } from './weatherResponse.interface';
 
 export interface WeatherState {
