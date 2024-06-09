@@ -5,6 +5,7 @@ import { Coord } from '../interfaces/weatherResponse.interface';
 export interface WeatherContextProps extends WeatherState {
   handleSearchPlacesByTerm: (q: string) => Promise<Place[]>;
   handleChangePlace: (cood: Coord) => void;
+  handleCloseError: () => void;
 }
 
 export const WeatherContext = createContext<WeatherContextProps>(

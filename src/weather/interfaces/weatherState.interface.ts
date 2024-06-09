@@ -5,6 +5,7 @@ export interface WeatherState {
   current: WeatherResponse;
   daily: Daily[];
   isLoading: boolean;
+  error: Error;
 }
 
 export interface Temp {
@@ -15,4 +16,9 @@ export interface Temp {
 export interface Daily {
   current: List;
   hourly: Temp[];
+}
+
+export interface Error {
+  open: boolean;
+  message: string;
 }

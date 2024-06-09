@@ -8,9 +8,9 @@ interface Props {
 export const WeatherProvider = ({ children }: Props) => {
   const {
     state,
-
     handleSearchPlacesByTerm,
     handleChangePlace,
+    handleCloseError,
   } = useWeather();
 
   return (
@@ -19,6 +19,7 @@ export const WeatherProvider = ({ children }: Props) => {
         ...state,
         handleSearchPlacesByTerm,
         handleChangePlace,
+        handleCloseError,
       }}
     >
       {children}

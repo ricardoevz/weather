@@ -1,10 +1,15 @@
+import { WeatherContextProps } from '../weather/context/weatherContext';
 import { Place } from '../weather/interfaces';
 import { mockWeather } from './mockWeather';
 
-export const mockWeatherContext = {
+export const mockWeatherContext: WeatherContextProps = {
   current: mockWeather,
   daily: [],
   isLoading: false,
+  error: {
+    open: false,
+    message: '',
+  },
   handleSearchPlacesByTerm: () => {
     return new Promise<Place[]>((resolve) => {
       const places: Place[] = [
@@ -21,4 +26,5 @@ export const mockWeatherContext = {
     });
   },
   handleChangePlace: () => {},
+  handleCloseError: () => {},
 };

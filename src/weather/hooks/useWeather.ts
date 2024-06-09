@@ -1,13 +1,16 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import { Daily, WeatherState } from '../interfaces';
-import { getPlacesByTerm } from '../service/weather.service';
+import {
+  getForecast,
+  getPlacesByTerm,
+  getWeather,
+} from '../service/weather.service';
 import { getUserLocation } from '../../helpers/getUserLocation';
 import { weatherReducer } from '../context';
 import {
   Coord,
   WeatherResponse,
 } from '../interfaces/weatherResponse.interface';
-import api from '../../apis/api';
 import { List } from '../interfaces/waetherForescat.response';
 import { convertDTtoDay } from '../../helpers';
 
@@ -19,11 +22,14 @@ const INITIAL_STATE: WeatherState = {
   current: {} as WeatherResponse,
   daily: [],
   isLoading: true,
+  error: {
+    open: false,
+    message: '',
+  },
 };
 
 export const useWeather = () => {
   const [state, dispatch] = useReducer(weatherReducer, INITIAL_STATE);
-  const [error, setError] = useState<string>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,18 +43,28 @@ export const useWeather = () => {
 
   const getData = async ({ lat, lon }: Coord) => {
     try {
-      const responseWeather = await api.get(`/weather?lat=${lat}&lon=${lon}`);
-      const responseForecast = await api.get(`/forecast?lat=${lat}&lon=${lon}`);
+      const responseWeather = await getWeather(lat, lon);
+      const responseForecast = await getForecast(lat, lon);
       dispatch({
         type: 'setWeather',
         payload: {
-          current: responseWeather.data,
-          daily: groupByDay(responseForecast.data.list),
+          current: responseWeather,
+          daily: groupByDay(responseForecast.list),
         },
       });
     } catch (error) {
-      setError(`${error}`);
+      setErrorResponse(error as Error);
     }
+  };
+
+  const setErrorResponse = (error: Error) => {
+    dispatch({
+      type: 'setError',
+      payload: {
+        open: true,
+        message: `${error.message}`,
+      },
+    });
   };
 
   const getUserCoord = async () => {
@@ -85,7 +101,7 @@ export const useWeather = () => {
       const resp = getPlacesByTerm(q);
       return resp;
     } catch (error) {
-      setError(`${error}`);
+      setErrorResponse(error as Error);
     }
   };
 
@@ -93,10 +109,14 @@ export const useWeather = () => {
     getData(coords);
   };
 
+  const handleCloseError = () => {
+    dispatch({ type: 'setError', payload: { open: false, message: '' } });
+  };
+
   return {
     state,
-    error,
     handleSearchPlacesByTerm,
     handleChangePlace,
+    handleCloseError,
   };
 };
