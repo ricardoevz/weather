@@ -17,12 +17,12 @@ export const Home = () => {
       {isLoading ? (
         <p>Cargando...</p>
       ) : (
-        <div className='grid grid-cols-1 lg:grid-cols-4 gap-3 h-full'>
-          <div className='col-span-1'>
+        <div className='grid grid-cols-1 md:grid-cols-4 gap-3 h-full'>
+          <div className='md:col-span-1'>
             <InputSearch />
             <Weather />
           </div>
-          <div className='col-span-3 items-center'>
+          <div className='md:col-span-3 items-center'>
             <WeatherForecast />
             <WeatherHightlights />
             <WeatherChart />

@@ -11,7 +11,7 @@ export const getWeather = async (
     const response = await api.get(`/weather?lat=${lat}&lon=${lon}`);
     return response.data;
   } catch (error) {
-    throw new Error('Error getting weather');
+    throw new Error('Error al obtener el clima actual');
   }
 };
 
@@ -23,7 +23,7 @@ export const getForecast = async (
     const response = await api.get(`/forecast?lat=${lat}&lon=${lon}`);
     return response.data;
   } catch (error) {
-    throw new Error('Error getting Forecast');
+    throw new Error('Error al obtener el pronóstico');
   }
 };
 
@@ -34,6 +34,6 @@ export const getPlacesByTerm = async (term: string) => {
     );
     return response.data;
   } catch (error) {
-    throw new Error('Error getting places');
+    throw new Error('Error al obtener los lugares');
   }
 };
