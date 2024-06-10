@@ -8,6 +8,10 @@ https://ricardoevz.github.io/weather/
 
 2. **Posicionarse en el proyecto e instalar las dependencias:** Navega hasta el directorio del proyecto e instala las dependencias necesarias.
 
+```
+npm install
+```
+
 3. **Configurar la API Key:** Abre el archivo /src/apis/api.ts y reemplaza el valor de [appid] con una clave API válida.
 
 ```
