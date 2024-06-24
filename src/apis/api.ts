@@ -9,9 +9,10 @@ api.interceptors.request.use(
     if (!config.params) {
       config.params = {};
     }
+    const apiKey = import.meta.env.VITE_API_KEY;
     config.params['units'] = 'metric';
     config.params['lang'] = 'es';
-    config.params['appid'] = '0891117a8d27a956f8197746c0878af4';
+    config.params['appid'] = apiKey;
     return config;
   },
   (error) => {
