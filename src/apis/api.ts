@@ -9,7 +9,7 @@ api.interceptors.request.use(
     if (!config.params) {
       config.params = {};
     }
-    const apiKey = import.meta.env.VITE_API_KEY;
+    const apiKey = process.env.VITE_API_KEY;
     config.params['units'] = 'metric';
     config.params['lang'] = 'es';
     config.params['appid'] = apiKey;
